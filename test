@@ -1,0 +1,153 @@
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Summary.Master" Inherits="System.Web.Mvc.ViewPage<AutoOnlineUI.Controllers.LOBViewModel>" %>
+
+<%@ Import Namespace="AutoOnlineUI.App_GlobalResources" %>
+<%@ Import Namespace="AutoOnlineUI.Utilities" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    <%= Html.Resource(typeof(LOBSelector), "LineSelection")%>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="HeaderCustomJavaScript" runat="server">
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            ////debugger;
+            var brokerAuto = eval("<%=Model.brokerAuto%>");
+            var brokerHome = eval("<%=Model.brokerProperty%>");
+            var brokerDBU = eval("<%=Model.brokerDBU%>");
+
+
+            ////debugger;
+            if (brokerAuto == 0) {
+                //debugger;
+                $("#AutoImg").css({ 'opacity': '0.1' });
+                $("#AutoLink").removeAttr("href");
+
+            }
+
+            if (brokerHome == 0) {
+
+                $("#HomeLink").removeAttr("href");
+                $("#HomeImage").css({ 'opacity': '0.1' });
+
+            }
+
+            //if (brokerDBU == 0) {
+            //    $("#DBUDisclaimer").hide();
+            //    $("#DBUDisclaimerTXT").hide();
+            //}
+        });       
+
+    </script>
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="HeaderContent" runat="server">
+        <table id="summaryheader">
+           <!--
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td rowspan="2">
+                    &nbsp;
+                </td>
+                <td rowspan="2">
+                    <asp:Image ID="Image4" runat="server" ImageUrl="~/Assets/Images/Logo/chubb-logo_100x11px.png" />
+                </td>
+            </tr>
+            -->
+            <tr>
+                <td valign="bottom">
+                    <h1><%= Html.Resource(typeof(LOBSelector), "LineSelection")%></h1>
+                </td>
+                 <td >
+                    &nbsp;
+                </td>
+                <td >
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Assets/Images/Logo/logo_black_small.png" CssClass="chubblogo" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="quotenumber2">
+                        <%= Html.DisplayFor(LOBViewModel => Model.clientName)%></span><span class="divider">
+                            |</span> <span><a class="greynopadding" href="<%= Url.Action("ClientEdit") %>"><%= Html.Resource(typeof(LOBSelector), "Edit")%></a></span>
+                </td>
+                <td align="left">
+                </td>
+                <td align="right" style="padding-top: 5px; padding-right: 14px; padding-bottom: 2px;">
+                    <a href="javascript:void(0)" onclick="javascript:openQuickTip('lob')">
+                        <asp:Image runat="server" CssClass="quicktip" ImageUrl="~/Assets/Images/quicktip.gif" /></a>
+                </td>
+            </tr>
+        </table>
+    </asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
+    
+        <br /><br />
+        <table style="font-size: 12px;color: #333333;width:100%">
+            <tr>
+                <td colspan="3">
+                    <%=LOBSelector.LineQuote%>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="center">
+                    <div id="HomeImage">
+                        <a id="HomeLink" href="<%= Url.Action("PropertyQuote") %>">
+                            <asp:Image ID="HomeImg" runat="server" ImageUrl="~/Assets/Images/home.jpg" Height="88px"
+                                Width="81px" BorderWidth="0px" />
+                        </a>
+                    </div>
+                </td>
+                <td align="left">
+                    <div id="AutoImg">
+                        <a id="AutoLink" href="<%= Url.Action("AutoQuote") %>">
+                            <asp:Image runat="server" ImageUrl="~/Assets/Images/auto.jpg" Height="88px" Width="81px"
+                                BorderWidth="0px" />
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        <table class="form2" id="DBUDisclaimer">
+            <tr>
+                <td colspan="4" class="bright100" />
+            </tr>
+            <tr>
+                <td colspan="4">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="justify">
+                    <div>
+                        <span id="DBUDisclaimerTXT" class="disclaimer">
+                            <%=LOBSelector.DisclaimerTxt%>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="bright100" />
+            </tr>
+        </table>
+        <br />
+</asp:Content>
